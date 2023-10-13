@@ -63,5 +63,6 @@ require (
 	github.com/justinas/alice v1.2.0
 	github.com/levigross/grequests v0.0.0-20221222020224-9eee758d18d5
 	github.com/spf13/cobra v1.7.0
+	github.com/streadway/amqp v1.1.0
 	github.com/urfave/cli v1.22.14
 )
