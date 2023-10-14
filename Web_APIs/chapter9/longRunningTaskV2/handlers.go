@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Web_apis/chapter9/longRunningTaskV2/models"
+	"github.com/web_apis/chapter9/longRunningTaskV2/models"
 	"github.com/go-redis/redis"
 	"github.com/google/uuid"
 	"github.com/streadway/amqp"
