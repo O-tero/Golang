@@ -27,4 +27,22 @@ This approach can offload an API server and focus on its business logic instead 
 A few use cases of queuing are as follows:
 
 - Compress images and email the final result
-- Automatic back
+- Automatic back pressuring (limiting the load on the server to predictable amounts)
+
+### RabbitMQ, a powerful message queue
+
+RabbitMQ implements a messaging protocol called Advanced Message Queueing Protocol(AMQP). It uses it to support worker queues.
+It also supports many other data exchange patterns, such as the following:
+
+- Publish/Subscribe
+- Topic/Subscription
+- Routing messages
+- Remote Procedure Call (RPC)
+
+Installing RabbitMQ on Docker `docker run -d — name dev-rabbit — hostname rabbitmq-dev -p 15672:15672 -p 5672:5672 rabbitmq:management`
+RabbitMQ uses default port 5672 for its operations. You can change this using the initial settings for the Docker command.
+
+### Communicating with RabbitMQ in Go
+
+First, create a connection to dial to the broker. If the connection is successful, a Channel needs to be created out of the connection.
+It has the API for performing operations on the message broker. Then, define a queue that messages are sent to. Finally, publish a message to the queue.

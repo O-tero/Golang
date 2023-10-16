@@ -34,6 +34,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/revel/config v1.0.0 // indirect
 	github.com/revel/log15 v2.11.20+incompatible // indirect
 	github.com/revel/pathtree v0.0.0-20140121041023-41257a1839e9 // indirect
@@ -63,6 +64,7 @@ require (
 	github.com/gorilla/rpc v1.2.0
 	github.com/justinas/alice v1.2.0
 	github.com/levigross/grequests v0.0.0-20221222020224-9eee758d18d5
+	github.com/machinebox/graphql v0.2.2
 	github.com/spf13/cobra v1.7.0
 	github.com/streadway/amqp v1.1.0
 	github.com/urfave/cli v1.22.14

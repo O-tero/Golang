@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gorilla/handlers"
 	"github.com/justinas/alice"
 )
 
@@ -60,7 +61,7 @@ func setServerTimeCookie(handler http.Handler) http.Handler{
 }
 
 func main() {
-	orginalHandler := http.HandlerFunc(handle)
+	orginalHandler := http.HandlerFunc(handlers)
 	chain := alice.New(filterContentType, setServerTimeCookie) .Then(orginalHandler)
 	http.Handle("/city", chain)
 	http.ListenAndServe(":8000", nil)
