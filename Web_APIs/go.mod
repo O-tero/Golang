@@ -59,8 +59,8 @@ require (
 )
 
 require (
-	github.com/felixge/httpsnoop v1.0.1 // indirect
-	github.com/gorilla/handlers v1.5.1
+	github.com/felixge/httpsnoop v1.0.3 // indirect
+	github.com/gorilla/handlers v1.5.2
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/rpc v1.2.0
 	github.com/graphql-go/handler v0.2.3
