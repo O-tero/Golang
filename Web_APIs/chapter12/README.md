@@ -25,11 +25,11 @@ then you need a translator that can turn the application response into a respons
 
 #### Benefits of reverse proxy server(Nginx):
 
-_It can act as a load balancer._
-_It can provide access control and rate limiting._
-_It can sit in front of a cluster of applications and redirect HTTP requests._
-_It can serve a filesystem with a good performance._
-_It streams media very well._
+- It can act as a load balancer.
+- It can provide access control and rate limiting.
+- It can sit in front of a cluster of applications and redirect HTTP requests.
+- It can serve a filesystem with a good performance.
+- It streams media very well.
 
 Nginx is also an upstream server i.e serves the requests from one server to the other.
 
@@ -55,3 +55,52 @@ On Mac OS X, the location will be as follows:
 
 Until we create a symlink from the sites-available to the sites-enabled directory, the configuration has no effect.
 So, always create a symlink for sites-available to sites-enabled for every new configuration you create.
+
+## Load balancing with Nginx
+
+Load balancing is a process where the central server distributes the load to various servers based on certain criteria.
+
+| Load-balancing   |                                                                   Method Description                                                                    |
+| :--------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Round Robin      |                         The incoming requests are uniformly distributed across servers based on the criteria of server weights.                         |
+| Least Connection |                                 Requests are sent to the server that is currently serving the least number of clients.                                  |
+| IP Hash          |  This is used to send the requests from a given client's IP to the given server. Only when that server is not available is it given to another server.  |
+| Least Time       | A request from the client is sent to the machine with the lowest average latency (the time-to-serve client) and the least number of active connections. |
+
+The first step in this process is to create an upstream cluster in the http section of the Nginx configuration file:
+`http {
+    upstream cluster {
+        server site1.mysite.com weight=5;
+        server site2.mysite.com weight=2;
+        server backup.mysite.com backup;
+    }
+}`
+
+Here, servers are the IP addresses or domain names of the servers running the same code.
+We are defining an upstream called cluster here. It is a server group that we can refer to in our location directive.
+Weights should be given in proportion to the resources available.
+In the preceding code, site1 is given a higher weight because it may be a bigger instance(memory and CPU).
+The backup server is given the backup parameter, which means that it will be used only when all the other servers are down.
+
+### Rate limiting our REST API
+
+We can limit the rate of access of our Nginx proxy server by rate limiting. This provides a directive called `limit_conn_zone`  
+The format of it is this:
+`limit_conn_zone client_type zone=zone_type:size;`
+
+`client_type` can be one of two types:
+
+- An IP address (limit requests from a given IP address)
+- A server name (limit requests from a server)
+
+`zone_type` also changes in correspondence to `client_type`. It takes values as per the
+following table:
+
+| Client type            | Zone type |
+| :--------------------- | :-------- |
+| $binary_remote_address | addr      |
+| $server_name           | servers   |
+
+Nginx has to save a few things in memory to remember the IP addresses and servers for rate limiting. 
+The size parameter is the storage that we allocate for Nginx to perform its memory operations.
+It takes values such as 8 m (8 MB) or 16 m (16 MB).
